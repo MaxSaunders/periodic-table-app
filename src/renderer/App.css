@@ -1,0 +1,19 @@
+body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  background: rgb(25, 25, 25);
+  font-family: sans-serif;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.app-wrapper {
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  display: table-row;
+}

@@ -1,0 +1,118 @@
+.element-flyout {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 400px;
+  height: 100vh;
+  padding: 10px;
+  transition: transform 350ms linear;
+  z-index: 3;
+
+  background-color: rgb(86, 94, 102);
+  overflow: hidden;
+  transform: translateX(0%);
+
+  &.hidden {
+    transform: translateX(100%);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    .info {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+  }
+
+  .symbol {
+    width: 150px;
+    height: 150px;
+    font-size: 100px;
+    border-radius: 4px;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.metal {
+      background-color: #003666;
+    }
+    &.nonmetal {
+      background-color: green;
+    }
+    &.alkali-metal {
+      background-color: brown;
+    }
+    &.alkaline-earth-metal {
+      background-color: rgb(132, 96, 17);
+    }
+    &.lanthanoid {
+      background-color: brown;
+    }
+    &.actinoid {
+      background-color: #732e4c;
+    }
+    &.transition-metal {
+      background-color: maroon;
+    }
+    &.post-transition-metal {
+      background-color: rgb(34, 34, 34);
+    }
+    &.metalloid {
+      background-color: teal;
+    }
+    &.halogen {
+      background-color: darkgreen;
+    }
+    &.noble-gas {
+      background-color: #4a266c;
+    }
+  }
+
+  .close-button {
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 20px;
+    width: 45px;
+    height: 40px;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .info-table {
+    margin-block: 20px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    .info-row {
+      font-size: larger;
+    }
+
+    .is-hovered {
+      border-radius: 4px;
+      cursor: pointer;
+      transform: scale(1.05);
+      background-color: lightcoral;
+      font-weight: 700;
+    }
+
+    span {
+      border-bottom: 1px solid white;
+      padding: 6px 5px;
+
+      &:nth-child(even) {
+        display: flex;
+        justify-content: end;
+      }
+    }
+  }
+}
