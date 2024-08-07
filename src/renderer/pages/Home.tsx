@@ -1,10 +1,11 @@
-import ElementCell, {
+import ElementCell from "../components/TableCells";
+import ElementFlyout from "../components/ElementFlyout";
+import useGetElements from "../helpers/useGetElements";
+import {
   SkipRow,
   TableLegend,
   TableOffsetLegend,
-} from "../components/TableCells";
-import ElementFlyout from "../components/ElementFlyout";
-import useGetElements from "../helpers/useGetElements";
+} from "../components/TableComponents";
 
 export default function Home() {
   const { offset, nonOffset } = useGetElements();
