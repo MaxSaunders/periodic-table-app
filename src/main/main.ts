@@ -31,6 +31,28 @@ ipcMain.on("ipc-example", async (event, arg) => {
   event.reply("ipc-example", msgTemplate("pong"));
 });
 
+ipcMain.on("close-app", async (event, arg) => {
+  mainWindow?.close();
+});
+
+ipcMain.on("minimize-app", async (event, arg) => {
+  mainWindow?.minimize();
+});
+
+// TODO: Not working
+ipcMain.on("maximize-app", async (event, arg) => {
+  if (mainWindow?.isMaximized()) {
+    mainWindow?.unmaximize();
+  } else {
+    mainWindow?.maximize();
+  }
+});
+
+// TODO: Not working
+ipcMain.on("fullscreen-app", async (event, arg) => {
+  mainWindow?.setFullScreen(true);
+});
+
 if (process.env.NODE_ENV === "production") {
   const sourceMapSupport = require("source-map-support");
   sourceMapSupport.install();
@@ -71,12 +93,14 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 1800,
+    height: 1300,
+    titleBarStyle: "hidden",
+    maximizable: true,
     fullscreenable: true,
-    fullscreen: true,
     icon: getAssetPath("icon.png"),
     webPreferences: {
+      nodeIntegration: true,
       preload: app.isPackaged
         ? path.join(__dirname, "preload.js")
         : path.join(__dirname, "../../.erb/dll/preload.js"),

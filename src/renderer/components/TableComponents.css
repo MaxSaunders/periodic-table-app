@@ -3,7 +3,7 @@
   display: flex;
 
   .states {
-    width: 150px;
+    width: 140px;
     align-items: center;
     justify-content: center;
     padding-left: 10px;
@@ -14,6 +14,11 @@
       margin-bottom: 10px;
       font-size: larger;
       font-weight: 700;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+      }
 
       &.gas {
         color: red;
@@ -23,7 +28,7 @@
       }
 
       .symbol {
-        font-size: 20px;
+        font-size: 22px;
         height: 35px;
         width: 35px;
         margin-right: 10px;
@@ -35,6 +40,7 @@
       }
 
       .label {
+        font-size: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -64,6 +70,7 @@
       &.selected-false {
         opacity: 0.2;
       }
+
       &.selected-true {
         border: 2px lightblue solid;
       }

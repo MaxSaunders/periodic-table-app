@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { VscClose } from "react-icons/vsc";
 import { Element as ElementType } from "../types/Elements";
 import useElement from "../helpers/useElement";
 import useGetElements from "../helpers/useGetElements";
@@ -30,7 +31,7 @@ function InfoRow({ label, value }: InfoRowProps) {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {value || "N/A"}
+        {(value || "N/A").toString().toUpperCase()}
       </span>
     </>
   );
@@ -80,38 +81,37 @@ function ElementFlyout() {
     <div className={`element-flyout ${isHidden ? "hidden" : ""}`}>
       <div className="header">
         <div className="info">
-          <h1>{atomicNumber}</h1>
-          <h2>{name}</h2>
+          <h1 className="atomic-number">{atomicNumber}</h1>
+          <h1 className="atomic-number">-</h1>
+          <h2 className="name">{name}</h2>
         </div>
         <button
           onClick={() => clearElement()}
           type="button"
           className="close-button"
         >
-          X
+          <VscClose />
         </button>
       </div>
-      <div>
-        <h1 className={`symbol ${groupBlock.toString().replaceAll(" ", "-")}`}>
-          {/* <h1 className="symbol" style={{ backgroundColor: `#${cpkHexColor}` }}> */}
-          {symbol}
-        </h1>
-      </div>
+      <h1 className={`symbol ${groupBlock.toString().replaceAll(" ", "-")}`}>
+        {/* <h1 className="symbol" style={{ backgroundColor: `#${cpkHexColor}` }}> */}
+        {symbol}
+      </h1>
       <div className="info-table">
+        <InfoRow label="Group" value={groupBlock} />
         <InfoRow label="Atomic Mass" value={atomicMass} />
         <InfoRow label="Density" value={density} />
-        <InfoRow label="Group" value={groupBlock} />
-        <InfoRow label="Melting Point" value={meltingPoint} />
         <InfoRow label="Standard State" value={standardState} />
-        <InfoRow label="Electro Negativity" value={electroNegativity} />
-        <InfoRow label="Boiling Point" value={boilingPoint} />
         <InfoRow label="Year Discovered" value={yearDiscovered} />
+        <InfoRow label="Melting Point" value={meltingPoint} />
+        <InfoRow label="Boiling Point" value={boilingPoint} />
+        <InfoRow label="Electro Negativity" value={electroNegativity} />
         <InfoRow label="Atomic Radius" value={atomicRadius} />
+        <InfoRow label="Electron Affinity" value={electronAffinity} />
         <InfoRow
           label="Electronic Configuration"
           value={electronicConfiguration}
         />
-        <InfoRow label="Electron Affinity" value={electronAffinity} />
       </div>
     </div>
   );

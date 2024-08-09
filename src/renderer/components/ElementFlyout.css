@@ -24,6 +24,14 @@
       display: flex;
       align-items: baseline;
       gap: 10px;
+
+      .atomic-number {
+        font-size: 40px;
+      }
+
+      .name {
+        font-size: 30px;
+      }
     }
   }
 
@@ -76,12 +84,20 @@
   .close-button {
     margin: 10px;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     font-weight: 700;
     font-size: 20px;
-    width: 45px;
-    height: 40px;
+    width: 40px;
+    height: 38px;
     cursor: pointer;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: 24px;
+      width: 24px;
+    }
 
     &:hover {
       transform: scale(1.05);
