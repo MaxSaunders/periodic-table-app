@@ -5,12 +5,9 @@ import { className } from "../helpers/utils";
 import "./TableComponents.css";
 
 export function TableOffsetLegend() {
-  const { currentSelection } = useGroup();
+  const { currentValue } = useGroup();
   return (
-    <div
-      style={{ opacity: currentSelection ? 0.1 : 1 }}
-      className="offset-legend"
-    >
+    <div style={{ opacity: currentValue ? 0.1 : 1 }} className="offset-legend">
       <div className="offset-legend-box">57 - 71</div>
       <div className="offset-legend-box">89 - 103</div>
       <div />
@@ -21,18 +18,20 @@ export function TableOffsetLegend() {
 }
 
 function TableGroup({ value, label }: { value: string; label: string }) {
-  const { getMouseOverProps, toggleSelectedGroup, currentSelection } =
+  const { getMouseOverProps, toggleSelectedCategory, currentValue } =
     useGroup();
+
+  const isSelected = currentValue === value;
 
   return (
     <div
       // eslint-disable-next-line react/jsx-props-no-spreading
-      {...getMouseOverProps(value)}
-      onClick={() => toggleSelectedGroup(value)}
+      {...getMouseOverProps("group", value)}
+      onClick={() => toggleSelectedCategory("group", value)}
       className={className([
         "group-select",
         value.replaceAll(" ", "-"),
-        currentSelection && `selected-${currentSelection === value}`,
+        currentValue && `selected-${isSelected}`,
       ])}
     >
       <span>{label}</span>
@@ -47,11 +46,23 @@ export function TableLegendState({
   state: string;
   symbol: string;
 }) {
+  const { getMouseOverProps, toggleSelectedCategory, currentValue } =
+    useGroup();
+  const isSelected = currentValue === state;
+
   return (
-    <div className={`entry ${state.toLowerCase()}`}>
+    <button
+      {...getMouseOverProps("state", state)}
+      onClick={() => toggleSelectedCategory("state", state)}
+      className={className([
+        "entry",
+        state.toLowerCase(),
+        currentValue && `selected-${isSelected}`,
+      ])}
+    >
       <span className="symbol">{symbol}</span>
       <span className="label">{state}</span>
-    </div>
+    </button>
   );
 }
 
@@ -59,6 +70,7 @@ export function TableLegend() {
   return (
     <div className="table-legend">
       <div className="states">
+        {/* <h3 style={{ padding: 0, marginBlock: "10px 20px" }}>Standard State</h3> */}
         <TableLegendState symbol="C" state="Solid" />
         <TableLegendState symbol="Hg" state="Liquid" />
         <TableLegendState symbol="H" state="Gas" />

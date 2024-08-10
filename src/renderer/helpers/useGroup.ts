@@ -1,56 +1,72 @@
 import { useSearchParams } from "react-router-dom";
 
-const GROUP_PARAM = "group";
-const GROUP_HOVER_PARAM = "group_hover";
+const CATEGORY_PARAM = "category";
+const CATEGORY_VALUE_PARAM = "category_value";
+const HOVERED_CATEGORY_PARAM = "category_hover";
+const HOVERED_VALUE_PARAM = "hovered_value";
 
-const useGroup = () => {
+type CATEGORY = "group" | "state";
+
+const useCategory = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const group = searchParams.get(GROUP_PARAM);
-  const hoveredGroup = searchParams.get(GROUP_HOVER_PARAM);
+  const category = searchParams.get(CATEGORY_PARAM);
+  const categoryValue = searchParams.get(CATEGORY_VALUE_PARAM);
+  const hoveredCategory = searchParams.get(HOVERED_CATEGORY_PARAM);
+  const hoveredValue = searchParams.get(HOVERED_VALUE_PARAM);
 
-  const setHoveredGroup = (id?: string) => {
-    searchParams.delete(GROUP_HOVER_PARAM);
+  const setHoveredCategory = (category?: CATEGORY, id?: string) => {
+    searchParams.delete(HOVERED_CATEGORY_PARAM);
+    searchParams.delete(HOVERED_VALUE_PARAM);
+    if (category) {
+      searchParams.set(HOVERED_CATEGORY_PARAM, category);
+    }
     if (id) {
-      searchParams.set(GROUP_HOVER_PARAM, id);
+      searchParams.set(HOVERED_VALUE_PARAM, id);
     }
     setSearchParams(searchParams);
   };
 
-  const setSelectedGroup = (id?: string) => {
-    searchParams.delete(GROUP_PARAM);
+  const setSelectedCategory = (category?: CATEGORY, id?: string) => {
+    searchParams.delete(CATEGORY_PARAM);
+    searchParams.delete(CATEGORY_VALUE_PARAM);
+    if (category) {
+      searchParams.set(CATEGORY_PARAM, category);
+    }
     if (id) {
-      searchParams.set(GROUP_PARAM, id);
+      searchParams.set(CATEGORY_VALUE_PARAM, id);
     }
     setSearchParams(searchParams);
   };
 
-  const toggleSelectedGroup = (id?: string) => {
-    if (group === id) {
-      setSelectedGroup();
+  const toggleSelectedCategory = (newCategory?: CATEGORY, newId?: string) => {
+    if (category === newCategory && newId === categoryValue) {
+      setSelectedCategory();
     } else {
-      setSelectedGroup(id);
+      setSelectedCategory(newCategory, newId);
     }
   };
 
-  const getMouseOverProps = (id: string) => ({
-    onMouseOver: () => setHoveredGroup(id),
-    onMouseOut: () => setHoveredGroup(""),
+  const getMouseOverProps = (category: CATEGORY, id: string) => ({
+    onMouseOver: () => setHoveredCategory(category, id),
+    onMouseOut: () => setHoveredCategory(),
   });
 
-  const currentSelection = hoveredGroup ?? group;
+  const currentValue = hoveredValue ?? categoryValue;
+  const currentCategory = hoveredCategory ?? category;
 
   return {
-    currentSelection,
+    currentValue,
+    currentCategory,
     getMouseOverProps,
-    setSelectedGroup,
-    setHoveredGroup,
-    toggleSelectedGroup,
+    setSelectedCategory,
+    setHoveredCategory,
+    toggleSelectedCategory,
     clearSelected: () => {
-      setHoveredGroup();
-      setSelectedGroup();
+      setHoveredCategory();
+      setSelectedCategory();
     },
   };
 };
 
-export default useGroup;
+export default useCategory;

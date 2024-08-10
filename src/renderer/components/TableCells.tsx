@@ -32,7 +32,23 @@ type ElementCellProps = {
 
 function ElementCell({ element }: ElementCellProps) {
   const { selectedElement, setElement } = useElement();
-  const { currentSelection } = useGroup();
+  const { currentValue, currentCategory } = useGroup();
+
+  const isSelected = (function () {
+    if (currentCategory === "group") {
+      return (
+        currentValue?.toString().toLowerCase() ===
+        element.groupBlock.toString().toLowerCase()
+      );
+    } else if (currentCategory === "state") {
+      return (
+        currentValue?.toString().toLowerCase() ===
+        element.standardState.toString().toLowerCase()
+      );
+    } else {
+      return false;
+    }
+  })();
 
   return (
     <>
@@ -48,8 +64,7 @@ function ElementCell({ element }: ElementCellProps) {
           element.groupBlock.toLocaleString().replaceAll(" ", "-"),
           `standard-state-${element.standardState}`,
           selectedElement === element.atomicNumber.toString() && "selected",
-          currentSelection &&
-            `group-selected-${currentSelection === element.groupBlock}`,
+          currentValue && `group-selected-${isSelected}`,
         ])}
       >
         <div className="cell-atomicNumber">{element.atomicNumber}</div>

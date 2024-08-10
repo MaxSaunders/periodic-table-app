@@ -10,11 +10,22 @@
     color: lightgray;
 
     .entry {
+      background-color: transparent;
+      border: none;
+      color: white;
+
       display: flex;
+      align-items: center;
+
       margin-bottom: 10px;
       font-size: larger;
       font-weight: 700;
       cursor: pointer;
+      transition: opacity 150ms;
+
+      &.selected-false {
+        opacity: 0.1;
+      }
 
       &:hover {
         transform: scale(1.05);
